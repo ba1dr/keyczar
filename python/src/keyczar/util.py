@@ -327,7 +327,10 @@ def Hash(*inputs):
   """Return a SHA-1 hash over a variable number of inputs."""
   md = sha1()
   for i in inputs:
-    md.update(i)
+    vv = i
+    if isinstance(i, str):
+      vv = i.encode()
+    md.update(vv)
   return md.digest()
 
 def PrefixHash(*inputs):
@@ -357,7 +360,7 @@ def Base64WSEncode(s):
   @return: Base64 representation of s.
   @rtype: string
   """
-  return base64.urlsafe_b64encode(str(s)).replace("=", "")
+  return base64.urlsafe_b64encode(s).decode().replace("=", "")
 
 
 def Decode(s):

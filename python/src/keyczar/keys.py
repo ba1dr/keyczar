@@ -354,7 +354,7 @@ class AesKey(SymmetricKey):
     @return: an AES key
     @rtype: L{AesKey}
     """
-    key_bytes = util.RandBytes(size / 8)
+    key_bytes = util.RandBytes(size // 8)
     key_string = util.Base64WSEncode(key_bytes)
     hmac_key = HmacKey.Generate()  # use default HMAC-SHA1 key size
     return AesKey(key_string, hmac_key, size)
@@ -521,7 +521,7 @@ class HmacKey(SymmetricKey):
     @return: an HMAC-SHA1 key
     @rtype: L{HmacKey}
     """
-    key_bytes = util.RandBytes(size / 8)
+    key_bytes = util.RandBytes(size // 8)
     key_string = util.Base64WSEncode(key_bytes)
     return HmacKey(key_string, size)
 

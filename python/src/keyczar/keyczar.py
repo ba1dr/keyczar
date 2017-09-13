@@ -288,7 +288,7 @@ class GenericKeyczar(Keyczar):
     write an unencrypted key set.
     @type encrypter: Encrypter
     """
-    if isinstance(writer, basestring):
+    if isinstance(writer, str):
       writer = writers.CreateWriter(writer)
       warnings.warn(
         'Using a string as the writer is deprecated. Use writers.CreateWriter',
