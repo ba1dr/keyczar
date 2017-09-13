@@ -20,7 +20,10 @@ Utility functions for keyczar package.
 """
 
 import base64
-import cPickle
+try:
+  import cPickle
+except ImportError:
+  import pickle
 import codecs
 import functools
 import math
@@ -53,7 +56,7 @@ from pyasn1.codec.der import decoder
 from pyasn1.codec.der import encoder
 from pyasn1.type import univ
 
-import errors
+from . import errors
 
 try:
   from abc import ABCMeta, abstractmethod, abstractproperty
@@ -796,7 +799,7 @@ class IncrementalBase64WSStreamReader(codecs.StreamReader, object):
         data = self.bytebuffer + newdata
         try:
           newchars, decodedbytes = self.decode(data, self.errors)
-        except UnicodeDecodeError, exc:
+        except UnicodeDecodeError as exc:
           if firstline:
             newchars, decodedbytes = self.decode(data[:exc.start], self.errors)
             lines = newchars.splitlines(True)
